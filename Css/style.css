@@ -1,0 +1,13 @@
+body {
+    text-align: center;
+    background-color: gray;
+    display: grid;
+    grid-template-columns: auto auto auto;
+}
+
+#gameWindow {
+    width: 800px;
+    height: 592;
+    grid-column-start: 2;
+    background-color: aqua;
+}
