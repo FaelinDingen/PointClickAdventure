@@ -1,13 +1,41 @@
 body {
-    text-align: center;
     background-color: gray;
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto 800px auto;
+    animation: all 1 ease-in-out;
+}
+
+#title {
+    grid-column-start: 2;
+    text-align: center;
 }
 
 #gameWindow {
+    position: relative;
     width: 800px;
-    height: 592;
+    height: 592px;
     grid-column-start: 2;
     background-color: aqua;
+}
+
+.background {
+    position: absolute;
+    z-index: 0;
+}
+
+.character {
+    position: absolute;
+    z-index: 1;
+}
+
+.foreground {
+    position: absolute;
+    z-index: 2;
+}
+
+#tilemap {}
+
+#mainCharacter {
+    top: 200px;
+    left: 200px;
 }
