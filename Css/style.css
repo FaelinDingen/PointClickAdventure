@@ -2,7 +2,6 @@ body {
     background-color: gray;
     display: grid;
     grid-template-columns: auto 800px auto;
-    animation: all 1 ease-in-out;
 }
 
 #title {
@@ -38,4 +37,5 @@ body {
 #mainCharacter {
     top: 200px;
     left: 200px;
+    transition: all 3s ease-in-out;
 }
