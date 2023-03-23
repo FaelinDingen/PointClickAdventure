@@ -22,7 +22,7 @@ gameWindow.onclick = async function (e) {
             showSpeech();
             if (!hasPick) {
                 characterAudio.play();
-                document.getElementById("ground").src = "img/TileMap2.png";
+                document.getElementById("ground").src = "Img/TileMap2.png";
                 hasPick = true;
                 showSpeech("Nice! A pickaxe");
             }
@@ -35,7 +35,7 @@ gameWindow.onclick = async function (e) {
             showSpeech();
             if (hasPick) {
                 characterAudio.play();
-                document.getElementById("ground").src = "img/TileMap3.png";
+                document.getElementById("ground").src = "Img/TileMap3.png";
                 showSpeech("There's a cool switch\nI hear a contraption activating");
                 rocked = true;
                 break;
@@ -49,10 +49,10 @@ gameWindow.onclick = async function (e) {
         case ("cave"):
             await delay(2500);
             if (rocked) {
-                document.getElementById("foregroundImg").src = "img/TileMapTrans.png";
+                document.getElementById("foregroundImg").src = "Img/TileMapTrans.png";
                 await delay(2000);
-                document.getElementById("foregroundImg").src = "img/TileMapForeGround2.png";
-                document.getElementById("ground").src = "img/TileMap4.png";
+                document.getElementById("foregroundImg").src = "Img/TileMapForeGround2.png";
+                document.getElementById("ground").src = "Img/TileMap4.png";
             }
             break;
         default:
