@@ -37,11 +37,15 @@ body {
     z-index: 3;
 }
 
+.foreground3 {
+    z-index: 4;
+}
+
 #tilemap {}
 
 #mainCharacter {
-    top: 200px;
-    left: 200px;
+    top: 220px;
+    left: 220px;
     transition: all 3s ease-in-out;
 }
 
@@ -64,6 +68,56 @@ body {
     left: 225px;
     width: 32px;
     height: 32px;
+}
+
+#shrine {
+    top: 19px;
+    left: 111px;
+    width: 16px;
+    height: 16px;
+}
+
+#chest {
+    top: 367px;
+    left: 705px;
+    width: 16px;
+    height: 16px;
+}
+
+#lever {
+    top: 50px;
+    left: 448px;
+    width: 16px;
+    height: 16px;
+}
+
+#crystal {
+    top: 15px;
+    left: 415px;
+    width: 16px;
+    height: 16px;
+}
+
+#book {
+    top: 450px;
+    left: 688px;
+    width: 16px;
+    height: 16px;
+}
+
+#playButton {
+    position: relative;
+    width: 800px;
+    height: 592px;
+    grid-column-start: 2;
+    background-color: rgba(0, 0, 0, 0.751);
+}
+
+#playButton>h1 {
+    color: #ffffff;
+    margin: 0;
+    padding: 300px 0px 0px 0px;
+    text-align: center;
 }
 
 .speech-bubble {
