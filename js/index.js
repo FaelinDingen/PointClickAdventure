@@ -86,6 +86,7 @@ gameWindow.onclick = async function (e) {
                     mainCharacter.style.top = 510 + "px";
                     document.getElementById("ground").src = "Img/DungeonTile" + dungeonState + ".png";
                     document.getElementById("foregroundImg").src = "Img/Empty.png";
+                    characterAudio.src = "Audio/TalkingInside.mp3"
                     canMove = false;
                     await delay(1000);
                     document.getElementById("mainCharacter").style.transition = 'all 3s ease-in-out';
@@ -106,14 +107,17 @@ gameWindow.onclick = async function (e) {
         switch (e.target.id) {
             case ("book"):
                 await delay(2500);
+                characterAudio.play();
                 showSpeech("An old book, it reads: \nThe key to the clean steel lies at the shrine on the north wall");
                 break;
             case ("bed"):
                 await delay(2500);
+                characterAudio.play();
                 showSpeech("No time to rest!\nThe world needs to be saved!");
                 break;
             case ("boxes"):
                 await delay(2500);
+                characterAudio.play();
                 showSpeech("Just a bunch of broken old boxes\nThere is nothing of value here");
                 break;
             case ("shrine"):
@@ -194,6 +198,7 @@ gameWindow.onclick = async function (e) {
                 await delay(1000);
                 document.getElementById("mainCharacter").style.transition = 'all 3s ease-in-out';
                 canMove = true;
+                characterAudio.src = "Audio/talkingOutside.mp3"
                 if (brokeCrystal) {
                     document.getElementById("foregroundImg").src = "Img/TileMapForeGround2.png";
                     document.getElementById("ground").src = "Img/TileMap4.png";
