@@ -105,6 +105,28 @@ body {
     height: 16px;
 }
 
+#bed {
+    top: 360px;
+    left: 656px;
+    width: 32px;
+    height: 48px;
+}
+
+#boxes {
+    top: 384px;
+    left: 112px;
+    width: 80px;
+    height: 128px;
+}
+
+#caveExit {
+    top: 440px;
+    left: 320px;
+    width: 150px;
+    height: 150px;
+}
+
+
 #playButton {
     position: relative;
     width: 800px;

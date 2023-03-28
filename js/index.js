@@ -2,10 +2,13 @@ const mainCharacter = document.getElementById("mainCharacter");
 const gameWindow = document.getElementById("gameWindow");
 const characterAudio = document.getElementById("characterAudio");
 const mcBubble = document.getElementById("mcBubble");
+let dungeonState = 1;
+let ended = false;
+let inCutScene = false;
+let canMove = false;
 let hasPick = false;
 let rocked = false;
 let inCave = false;
-let canMove = false;
 let hasKey = false;
 let hasAcid = false;
 let unrusted = false;
@@ -27,16 +30,18 @@ gameWindow.onclick = async function (e) {
     if (!inCave) {
         switch (e.target.id) {
             case ("playButton"): case ("startText"): // into cinamatic
-                document.getElementById("startText").innerText = "The time has stoped.\nIt is summer forever";
-                await delay(4000);
-                document.getElementById("startText").innerText = "You are the last hope of this world";
-                await delay(4000);
-                document.getElementById("startText").innerText = "You, the last time wizzard\nneed to find the currupted time crystal\nAND BREAK IT";
-                await delay(6000);
-                document.getElementById("playButton").remove();
-                canMove = true;
+                if (!inCutScene) {
+                    inCutScene = true;
+                    document.getElementById("startText").innerText = "The time has stoped.\nIt is summer forever";
+                    await delay(4000);
+                    document.getElementById("startText").innerText = "You are the last hope of this world";
+                    await delay(4000);
+                    document.getElementById("startText").innerText = "You, the last time wizzard\nneed to find the currupted time crystal\nAND BREAK IT";
+                    await delay(6000);
+                    document.getElementById("playButton").remove();
+                    canMove = true;
+                }
                 break;
-
             case ("tool"):
                 await delay(2500);
                 showSpeech();
@@ -52,19 +57,24 @@ gameWindow.onclick = async function (e) {
                 }
                 break;
             case ("rock"):
+                console.log("cave");
                 await delay(2500);
                 showSpeech();
-                if (hasPick) {
+                if (hasPick && !rocked) {
                     characterAudio.play();
                     document.getElementById("ground").src = "Img/TileMap3.png";
                     showSpeech("There's a switch\nI hear a contraption activating");
                     rocked = true;
-                    break;
                 }
-                else if (!hasPick) {
+                else if (!rocked) {
                     characterAudio.play();
                     showSpeech("U see something peaking out underneath the stone\nIf only u have a tool to break it open with");
                 }
+                else {
+                    characterAudio.play();
+                    showSpeech("A useless pile of rocks");
+                }
+                break;
             case ("cave"):
                 await delay(2500);
                 if (rocked) {
@@ -74,7 +84,7 @@ gameWindow.onclick = async function (e) {
                     document.getElementById("mainCharacter").style.transition = 'none';
                     mainCharacter.style.left = 375 + "px";
                     mainCharacter.style.top = 510 + "px";
-                    document.getElementById("ground").src = "Img/DungeonTile1.png";
+                    document.getElementById("ground").src = "Img/DungeonTile" + dungeonState + ".png";
                     document.getElementById("foregroundImg").src = "Img/Empty.png";
                     canMove = false;
                     await delay(1000);
@@ -98,6 +108,14 @@ gameWindow.onclick = async function (e) {
                 await delay(2500);
                 showSpeech("An old book, it reads: \nThe key to the clean steel lies at the shrine on the north wall");
                 break;
+            case ("bed"):
+                await delay(2500);
+                showSpeech("No time to rest!\nThe world needs to be saved!");
+                break;
+            case ("boxes"):
+                await delay(2500);
+                showSpeech("Just a bunch of broken old boxes\nThere is nothing of value here");
+                break;
             case ("shrine"):
                 await delay(2500);
                 if (!hasKey) {
@@ -112,54 +130,82 @@ gameWindow.onclick = async function (e) {
                 break;
             case ("chest"):
                 await delay(2500);
-                if (hasKey) {
+                if (hasKey && !hasAcid) {
                     characterAudio.play();
                     showSpeech("U unlock the chest and open it\nThere is a bottle of acid inside");
                     hasAcid = true;
                     document.getElementById("ground").src = "Img/DungeonTile2.png";
+                    dungeonState++;
+                }
+                else if (!hasAcid) {
+                    characterAudio.play();
+                    showSpeech("A chest\nU try to open it but it seems like its locked");
                 }
                 else {
                     characterAudio.play();
-                    showSpeech("A chest\nU try to open it but it seems like its locked");
+                    showSpeech("An empty chest");
                 }
                 break;
             case ("lever"):
                 await delay(2500);
-                if (hasAcid) {
+                if (hasAcid && !unrusted) {
                     characterAudio.play();
                     showSpeech("U let the acid desolve the rust on the lever\nu switch the lever");
                     unrusted = true;
                     document.getElementById("ground").src = "Img/DungeonTile3.png";
+                    dungeonState++;
+                }
+                else if (!unrusted) {
+                    characterAudio.play();
+                    showSpeech("A rusted over lever");
                 }
                 else {
                     characterAudio.play();
-                    showSpeech("A rusted over lever");
+                    showSpeech("A fliped lever");
                 }
                 break;
             case ("crystal"):
                 await delay(2500);
-                if (unrusted) {
+                if (unrusted && !brokeCrystal) {
                     characterAudio.play();
-                    showSpeech("The corrupted time crystal\nU smash it to pieces and u feel like the time has started again\nU head out of the cave");
+                    showSpeech("The corrupted time crystal...\nU smash it to pieces and u feel like the time has started again");
                     document.getElementById("ground").src = "Img/DungeonTile4.png";
-                    await delay(4000);
-                    document.getElementById("foregroundImg").src = "Img/TileMapTrans.png";
-                    document.getElementById("mainCharacter").style.transition = 'none';
-                    canMove = false;
-                    mainCharacter.style.left = 225 + "px";
-                    mainCharacter.style.top = 310 + "px";
-
-                    await delay(1000);
-                    document.getElementById("mainCharacter").style.transition = 'all 3s ease-in-out';
-                    canMove = true;
-                    document.getElementById("foregroundImg").src = "Img/TileMapForeGround2.png";
-                    document.getElementById("ground").src = "Img/TileMap4.png";
-                    inCave = false;
+                    dungeonState++;
+                    brokeCrystal = true;
                 }
-                else {
+                else if (!brokeCrystal) {
                     characterAudio.play();
                     showSpeech("The currupted time crystal\nits behind some bars and u cant reach it");
                 }
+                else {
+                    characterAudio.play();
+                    showSpeech("A pile of glowing dust is on the floor\nIts too weak to cause damage");
+                }
+                break;
+            case ("caveExit"):
+                await delay(2500);
+                showSpeech("U head out of the cave");
+                await delay(2000);
+                document.getElementById("foregroundImg").src = "Img/TileMapTrans.png";
+                document.getElementById("mainCharacter").style.transition = 'none';
+                canMove = false;
+                mainCharacter.style.left = 225 + "px";
+                mainCharacter.style.top = 310 + "px";
+                await delay(1000);
+                document.getElementById("mainCharacter").style.transition = 'all 3s ease-in-out';
+                canMove = true;
+                if (brokeCrystal) {
+                    document.getElementById("foregroundImg").src = "Img/TileMapForeGround2.png";
+                    document.getElementById("ground").src = "Img/TileMap4.png";
+                    if (!ended) {
+                        showSpeech("Its Fall!\nThe world is saved!");
+                    }
+                }
+                else {
+                    document.getElementById("foregroundImg").src = "Img/TileMapForeGround1.png";
+                    document.getElementById("ground").src = "Img/TileMap3.png";
+                }
+                inCave = false;
                 break;
             default:
                 hideSpeech();
