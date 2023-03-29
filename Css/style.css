@@ -1,4 +1,7 @@
 body {
+    background-image: url(../Img/Background1.png);
+    background-repeat: no-repeat;
+    background-size: cover;
     background-color: gray;
     display: grid;
     grid-template-columns: auto 800px auto;
@@ -40,8 +43,6 @@ body {
 .foreground3 {
     z-index: 4;
 }
-
-#tilemap {}
 
 #mainCharacter {
     top: 220px;
@@ -95,14 +96,14 @@ body {
     top: 15px;
     left: 415px;
     width: 16px;
-    height: 16px;
+    height: 32px;
 }
 
 #book {
-    top: 450px;
-    left: 688px;
-    width: 16px;
-    height: 16px;
+    top: 447px;
+    left: 675px;
+    width: 32px;
+    height: 32px;
 }
 
 #bed {
@@ -126,6 +127,27 @@ body {
     height: 150px;
 }
 
+#toolItem {
+    top: 560px;
+    left: 768px;
+    width: 32px;
+    height: 32px;
+}
+
+#keyItem {
+    top: 560px;
+    left: 736px;
+    width: 32px;
+    height: 32px;
+}
+
+#acidItem {
+    top: 560px;
+    left: 704px;
+    width: 32px;
+    height: 32px;
+}
+
 
 #playButton {
     position: relative;
@@ -133,13 +155,15 @@ body {
     height: 592px;
     grid-column-start: 2;
     background-color: rgba(0, 0, 0, 0.751);
+    transition: all 3s ease-in-out;
 }
 
-#playButton>h1 {
-    color: #ffffff;
+#startText {
+    color: rgba(255, 255, 255, 1);
     margin: 0;
     padding: 300px 0px 0px 0px;
     text-align: center;
+    transition: all 3s ease-in-out;
 }
 
 .speech-bubble {
@@ -150,7 +174,7 @@ body {
     left: 70px;
     top: 15px;
     opacity: 0;
-    width: 300px;
+    width: 500px;
     transition: all .5s ease-in-out;
 }
 
@@ -160,10 +184,13 @@ body {
 }
 
 #brownBar {
-
     position: absolute;
     height: 32px;
     width: 800px;
     background-color: rgb(157, 71, 17);
     bottom: 0px;
+}
+
+.disabled {
+    visibility: collapse;
 }
